@@ -34,36 +34,47 @@
             data: {
               labels: [],
               datasets: [{
-                label: 'Temperature',
-                backgroundColor: 'rgb(255, 99, 132)',
+                label: 'température',
+                backgroundColor: 'rgba(255, 99, 132, 0)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: []
-              },
-              {
+                data: [],
+                lineTension: 0
+              }, {
                 label: 'Humidité',
-                backgroundColor: 'rgb(153, 102, 255)',
-                borderColor: 'rgb(153, 102, 255)',
-                data: []
-              }]
+                backgroundColor: 'rgba(54, 162, 235, 0)',
+                borderColor: 'rgb(54, 162, 235)',
+                data: [],
+                lineTension: 0
+              }, ]
             },
-            options: {}
+            //taille min graphique
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                      min: 8
+                  }
+                }] 
+              }
+            }
           });
-                   // Ajouter des données toutes les 3 secondes
-
-                   $(document).ready(function(){
-   setInterval(function() {
-        $.get("http://192.168.137.187:5000/realtime", function(data) {
+        
+          // Ajouter des données aléatoires toutes les secondes
+          var intervalID = setInterval(function() {
             var x = new Date();
-            var y1 = parseFloat(data["degre"]);
-            var y2 = parseFloat(data["teaux_humidite"]);
-            chart.data.labels.push(x.toLocaleTimeString());
-            chart.data.datasets[0].data.push(y1);
-            chart.data.datasets[1].data.push(y2);
+            //valeurs a entrée pour tractions
+            var y1 = [22, 10, 20, 21., 15];
+            var y2 = [12, 11, 15, 16, 19];
+            for (var i = 0; i < y1.length; i++) {
+              chart.data.labels.push(x.toLocaleTimeString());
+              chart.data.datasets[0].data.push(y1[i]);
+              chart.data.datasets[1].data.push(y2[i]);
+            }
             chart.update();
-        });
-    }, 3000);
-});
-        </script>
+            clearInterval(intervalID); 
+          }, 1000);
+        
+            </script>
     </div>
   
 
